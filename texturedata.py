@@ -2,14 +2,19 @@ from globals import *
 import pygame
 
 texture_data = {
-    "player":{"type":"player", "file_path":"res/player.png","size":(TILESIZE, TILESIZE*2)},
-    "player_jump":{"type":"player", "file_path":"res/player_jump.png","size":(TILESIZE, TILESIZE*2)},
-    "player_run_left":{"type":"player", "file_path":"res/player_run_left.png","size":(TILESIZE, TILESIZE*2)},
-    "player_run_right":{"type":"player", "file_path":"res/player_run_right.png","size":(TILESIZE, TILESIZE*2)},
+    "player":{"type":"player", "file_path":"res/player.png","size":(TILESIZE*2, TILESIZE*4)},
+    "player_jump":{"type":"player", "file_path":"res/player_jump.png","size":(TILESIZE*2, TILESIZE*4)},
+    "player_run_left":{"type":"player", "file_path":"res/player_run_left.png","size":(TILESIZE*2, TILESIZE*4)},
+    "player_run_right":{"type":"player", "file_path":"res/player_run_right.png","size":(TILESIZE*2, TILESIZE*4)},
+
+    "zombie_static":{"type":"mob", "file_path":"res/zombie.png","size":(TILESIZE*2, TILESIZE*3)},
 
     "grass":{"type":"block", "file_path":"res/grass.png","size":(TILESIZE, TILESIZE)},
     "dirt":{"type":"block", "file_path":"res/dirt.png","size":(TILESIZE, TILESIZE)},
-    "stone":{"type":"block", "file_path":"res/stone.png","size":(TILESIZE, TILESIZE)}
+    "stone":{"type":"block", "file_path":"res/stone.png","size":(TILESIZE, TILESIZE)},
+    "wood":{"type":"block", "file_path":"res/wood.png","size":(TILESIZE, TILESIZE)},
+    "wand":{"type":"block", "file_path":"res/wand.png","size":(TILESIZE, TILESIZE)},
+    "orb":{"type":"block", "file_path":"res/orb.png","size":(TILESIZE, TILESIZE)},
 }
 
 def gen_textures() -> dict:
