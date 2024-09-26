@@ -93,7 +93,7 @@ class Mob(Entity):
         if self.attacking and not self.attacked:
             if self.rect.colliderect(self.player.rect):
                 self.player.health -= self.damage
-                self.zombie_sounds = ["zombie_1","zombie_2","zombie_3"]
+                self.zombie_sounds = ["zombie_1","zombie_2"]
                 AUDIO[choice(self.zombie_sounds)].play()
                 self.attacked = True
 

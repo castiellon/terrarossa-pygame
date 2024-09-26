@@ -8,9 +8,8 @@ AUDIO = {
     "dirt":pygame.mixer.Sound('res/dirt.x-wav'),
     "wood":pygame.mixer.Sound('res/Dig_0.x-wav'),
     "jump":pygame.mixer.Sound('res/Jump_1.x-wav'),
-    "zombie_1":pygame.mixer.Sound('res/Zombie_4.x-wav'),
-    "zombie_2":pygame.mixer.Sound('res/Zombie_38.x-wav'),
-    "zombie_3":pygame.mixer.Sound('res/Zombie_39.x-wav'),
+    "zombie_1":pygame.mixer.Sound('res/Zombie_38.x-wav'),
+    "zombie_2":pygame.mixer.Sound('res/Zombie_39.x-wav'),
 }
 for name,sound in AUDIO.items():
         if name != "orb":

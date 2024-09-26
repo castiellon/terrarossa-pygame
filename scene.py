@@ -79,7 +79,7 @@ class Scene:
             if not self.played:
                 pygame.mixer.music.stop()
                 pygame.mixer.music.load("res/lightless.mp3")
-                pygame.mixer.music.set_volume(0.2)
+                pygame.mixer.music.set_volume(0.4)
                 pygame.mixer.music.play(1)
                 self.played = True
             if not pygame.mixer.music.get_busy():

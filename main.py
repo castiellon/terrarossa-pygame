@@ -14,7 +14,7 @@ class Game:
         # Set the window icon
         pygame.display.set_icon(icon)   
         pygame.display.set_caption("terrarossa - bitaneme") 
-        pygame.mixer.music.set_volume(0.05)
+        pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.load("res/background_music.mp3")
         pygame.mixer.music.play(-1)      
 
