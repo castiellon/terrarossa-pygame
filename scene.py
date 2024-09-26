@@ -11,6 +11,7 @@ from inventory import Inventory
 class Scene:
     def __init__(self, app):
         self.app = app
+        self.screen = app.screen
         self.running = True
         self.played = False
         self.textures = gen_textures()
@@ -23,7 +24,7 @@ class Scene:
         self.group_list: dict[str, pygame.sprite.Group] = {
             "sprites":self.sprites,
             "block_group":self.blocks,
-            "mob_group":self.mobs
+            "mob_group":self.mobs,
         }
         #inventory
         self.inventory = Inventory(self.app, self.textures)
@@ -36,12 +37,12 @@ class Scene:
         self.create_mobs()
 
     def create_mobs(self):
-        mob_positions = [(800, -500)] #revert back!!! add more mobs(harder)
+        mob_positions = [(800, 0)] #revert back!!! add more mobs(harder)
         for pos in mob_positions:
             Mob([self.sprites, self.mobs], pos, self.textures["zombie_static"], parameters={
                 "block_group": self.blocks,
                 "player": self.player,
-                "damage": 1
+                "damage": 1,
             })
 
     def gen_world(self):
@@ -90,8 +91,10 @@ class Scene:
         self.sprites.update()
     def draw(self):
         if self.player.velocity != pygame.math.Vector2():
-            self.app.screen.blit(self.background, (0,0))
+            self.screen.blit(self.background, (0,0))
 
         self.is_game_over()
-        self.sprites.draw(self.player, self.app.screen)
+        self.sprites.draw(self.player, self.screen)
         self.inventory.draw()
+        for mob in self.mobs:
+            mob.draw(self.screen)

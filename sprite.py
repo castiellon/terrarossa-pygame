@@ -23,7 +23,8 @@ class Mob(Entity):
             self.damage = parameters["damage"]
 
         self.velocity = pygame.math.Vector2()
-        self.health = 5
+        self.max_health = 20
+        self.health = 20
         self.mass = 20
         self.speed = 1
         self.terminal_velocity = TERMINALVELOCITY*MASS
@@ -34,6 +35,9 @@ class Mob(Entity):
         #cooldowns
         self.attack_cooldown = 60
         self.counter = self.attack_cooldown
+        #health bar settings
+        self.health_bar_length = 40
+        self.health_bar_height = 5
     def get_distance(self):
         return abs(math.sqrt((self.rect.x - self.player.rect.x)**2 + (self.rect.y - self.player.rect.y)**2))
     
@@ -102,6 +106,24 @@ class Mob(Entity):
                 elif self.player.rect.centerx < self.rect.centerx:
                     self.player.velocity.x = -10
 
+    def draw(self,screen):
+        # Create health bars
+        offset = pygame.math.Vector2()
+        offset.x = SCREENWIDTH / 2 - self.player.rect.centerx
+        offset.y = SCREENHEIGHT / 2 - self.player.rect.centery
+        health_bar_rect = pygame.Rect(self.rect.centerx + offset.x -self.health_bar_length//2, self.rect.top + offset.y - 15, self.health_bar_length, self.health_bar_height)
+        
+        # Calculate health ratio and current width
+        health_ratio = self.health / self.max_health
+        bar_width = self.health_bar_length * health_ratio
+        current_health_bar_rect = pygame.Rect(self.rect.centerx + offset.x - self.health_bar_length//2 , self.rect.top+ offset.y - 15, bar_width, self.health_bar_height)
+        # Draw the health bar 
+        if bar_width > 0:  # Only draw if there's health left
+            pygame.draw.rect(screen, "black", health_bar_rect)
+            pygame.draw.rect(screen, "white", current_health_bar_rect)
+
+
+
     def update(self):
         self.move()
         if not self.player.game_over:
@@ -144,7 +166,7 @@ class Orb(Entity):
                     # Set the collision flag
                     entity.health -= self.damage
                     self.collision_with_mob = True
-                    print(entity.health)
+                    #print(entity.health)
                     if entity.health <= 0:
                         entity.kill()
                     break 
