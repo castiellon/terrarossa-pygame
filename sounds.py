@@ -3,6 +3,7 @@ pygame.mixer.init()
 
 AUDIO = {
     "orb":pygame.mixer.Sound('res/orb.x-wav'),
+    "orb_2":pygame.mixer.Sound('res/orb_2.wav'),
     "stone":pygame.mixer.Sound('res/stone.x-wav'),
     "grass":pygame.mixer.Sound('res/grass.x-wav'),
     "dirt":pygame.mixer.Sound('res/dirt.x-wav'),

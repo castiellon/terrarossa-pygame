@@ -13,8 +13,12 @@ texture_data = {
     "dirt":{"type":"block", "file_path":"res/dirt.png","size":(TILESIZE, TILESIZE)},
     "stone":{"type":"block", "file_path":"res/stone.png","size":(TILESIZE, TILESIZE)},
     "wood":{"type":"block", "file_path":"res/wood.png","size":(TILESIZE, TILESIZE)},
+
     "wand":{"type":"block", "file_path":"res/wand.png","size":(TILESIZE, TILESIZE)},
+    "wand_2":{"type":"block", "file_path":"res/wand_2.png","size":(TILESIZE, TILESIZE)},
+
     "orb":{"type":"block", "file_path":"res/orb.png","size":(TILESIZE, TILESIZE)},
+    "orb_2":{"type":"block", "file_path":"res/orb_2.png","size":(TILESIZE, TILESIZE)},
 }
 
 def gen_textures() -> dict:

@@ -117,12 +117,14 @@ class Orb(Entity):
     def __init__(self, groups, position, image: pygame.Surface, direction, parameters: dict):
         super().__init__(groups, position, image)
         self.speed = 10
-        self.damage = 1
         self.velocity = pygame.math.Vector2(direction) * self.speed
         self.collision_with_mob = False
         if parameters:
             self.mob_group = parameters["mob_group"]
             self.player = parameters["player"]
+            self.wand = parameters["wand"]
+        self.damage = self.wand.damage
+
 
     def move(self):
         self.rect.topleft += self.velocity
@@ -133,16 +135,19 @@ class Orb(Entity):
     def check_collisions(self):
         # Reset the collision flag before checking
         self.collision_with_mob = False
+
         
         # Check collisions with entities in the groups
         for entity in self.mob_group:
-            if isinstance(entity, Mob) and entity.rect.colliderect(self.rect):
-                # Set the collision flag
-                self.collision_with_mob = True
-                entity.health -= self.damage
-                if entity.health <= 0:
-                    entity.kill()
-                break 
+            if isinstance(entity, Mob):
+                if entity.rect.colliderect(self.rect):
+                    # Set the collision flag
+                    entity.health -= self.damage
+                    self.collision_with_mob = True
+                    print(entity.health)
+                    if entity.health <= 0:
+                        entity.kill()
+                    break 
 
 
     def handle_mob_collision(self):

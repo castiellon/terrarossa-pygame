@@ -6,12 +6,13 @@ class Inventory:
         self.app = app
         self.screen = app.screen
         self.textures = textures
-        #create slots
+        #create initial slots
         self.slots = []
         for index in range(5):
             self.slots.append(Item())
         self.slots[0] = WandItem("wand", 10)
-        self.slots[1] = BlockItem("wood", 200)
+        self.slots[1] = WandItem("wand_2", 10)
+        self.slots[2] = BlockItem("wood", 200)
         self.last_item_time = pygame.time.get_ticks()  # Track time of the last item addition
         self.item_interval = 2000  # 2 seconds interval
 
@@ -21,7 +22,7 @@ class Inventory:
 
     def use(self, player, pos, mob_group):
         if self.slots[self.active_slot].name != "default":
-            if self.slots[self.active_slot].name == "wand":
+            if items[self.slots[self.active_slot].name].item_type == WandItem:
                 self.slots[self.active_slot].use(player, mob_group) #wand
             else:
                 self.slots[self.active_slot].use(player, pos) #block
@@ -46,6 +47,7 @@ class Inventory:
         current_time = pygame.time.get_ticks()
         if current_time - self.last_item_time >= self.item_interval:
             self.add_item(Item(name="wand"))
+            self.add_item(Item(name="wand_2"))
             self.last_item_time = current_time  # Reset the timer
 
         

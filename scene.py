@@ -36,7 +36,7 @@ class Scene:
         self.create_mobs()
 
     def create_mobs(self):
-        mob_positions = [(800, -500), (1800, -500), (2800, -500), (3800, -500)]
+        mob_positions = [(800, -500)] #revert back!!! add more mobs(harder)
         for pos in mob_positions:
             Mob([self.sprites, self.mobs], pos, self.textures["zombie_static"], parameters={
                 "block_group": self.blocks,
