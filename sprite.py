@@ -138,14 +138,14 @@ class Mob(Entity):
 class Orb(Entity):
     def __init__(self, groups, position, image: pygame.Surface, direction, parameters: dict):
         super().__init__(groups, position, image)
-        self.speed = 10
-        self.velocity = pygame.math.Vector2(direction) * self.speed
-        self.collision_with_mob = False
         if parameters:
             self.mob_group = parameters["mob_group"]
             self.player = parameters["player"]
             self.wand = parameters["wand"]
         self.damage = self.wand.damage
+        self.speed = self.wand.projectile_speed
+        self.velocity = pygame.math.Vector2(direction) * self.speed
+        self.collision_with_mob = False
 
 
     def move(self):

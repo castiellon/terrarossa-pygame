@@ -48,6 +48,7 @@ class WandItem(Item):
         self.player = player
         self.mob_group = mob_group
         self.damage = items[self.name].damage
+        self.projectile_speed = items[self.name].projectile_speed
         Orb([player.group_list["sprites"]], player.rect.center, player.textures[self.projectiles[self.name]], direction, {"mob_group":self.mob_group,
                                                                                                                           "player": self.player,
                                                                                                                           "wand":self})
@@ -62,19 +63,28 @@ class WandItem(Item):
 
 
 class ItemData:
-    def __init__(self, name: str, quantity: int = 0, groups: list[str] = ["sprites", "block_group"], use_type: Entity = Entity, item_type: Item = Item, damage: int = 0) -> None:
+    def __init__(self,
+                name: str,
+                quantity: int = 0,
+                groups: list[str] = ["sprites", "block_group"],
+                use_type: Entity = Entity,
+                item_type: Item = Item,
+                damage: int = 0,
+                projectile_speed: int = 0) -> None:
         self.name = name
         self.quantity = quantity
         self.groups = groups
         self.use_type = use_type
         self.item_type = item_type
         self.damage = damage
+        self.projectile_speed = projectile_speed
 
 items: dict[str, ItemData] = {
     "grass":ItemData("grass", item_type=BlockItem),
     "dirt":ItemData("dirt", item_type=BlockItem),
     "stone":ItemData("stone", item_type=BlockItem),
     "wood":ItemData("wood", item_type=BlockItem),
-    "wand":ItemData("wand",item_type=WandItem, damage=1),
-    "wand_2":ItemData("wand_2",item_type=WandItem,damage=2),
+    "wand":ItemData("wand",item_type=WandItem, damage=1, projectile_speed = 10),
+    "wand_2":ItemData("wand_2",item_type=WandItem,damage=2, projectile_speed = 6)
 }
+print(items["wand"].projectile_speed)
