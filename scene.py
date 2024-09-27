@@ -15,7 +15,7 @@ class Scene:
         self.running = True
         self.played = False
         self.textures = gen_textures()
-        self.background = pygame.image.load("res/night_sky.png").convert_alpha()
+        self.background = pygame.image.load("res/background.jpg").convert_alpha()
         self.background = pygame.transform.scale(self.background, (SCREENWIDTH,SCREENHEIGHT))
         self.app.screen.blit(self.background, (0,0))
         self.sprites = Camera()
@@ -51,7 +51,7 @@ class Scene:
         #grass biome
         noise_generator = OpenSimplex(seed = 15062002)
         heightmap = []
-        for y in range(BIOMESIZE*2):
+        for y in range(BIOMESIZE*3):
             noise_value = noise_generator.noise2(y * 0.1, 0)
             height = int((noise_value + 1) * 8 + 3)
             heightmap.append(height)
@@ -79,7 +79,7 @@ class Scene:
 
                 Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), surface, name = block_type)
         #corrupt biome
-        for x in range(BIOMESIZE, len(smooth_heightmap)):
+        for x in range(BIOMESIZE, 2*BIOMESIZE):
             for y in range(smooth_heightmap[x]):
                 y_offset = 5-y
                 block_type = "dirt"
@@ -93,14 +93,27 @@ class Scene:
                 surface.set_alpha(alpha_value)  # Set alpha based on height
 
                 Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), surface, name = block_type)
+        #crimson biome
+        for x in range(2*BIOMESIZE, len(smooth_heightmap)):
+            for y in range(smooth_heightmap[x]):
+                y_offset = 5-y
+                block_type = "dirt"
+                if y == smooth_heightmap[x]-1:
+                    block_type ="crimson_grass"
+                if y < smooth_heightmap[x]-4:
+                    block_type = "stone"
 
+                alpha_value = int(255 * (y / smooth_heightmap[x]))
+                surface = self.textures[block_type].copy()
+                surface.set_alpha(alpha_value)  # Set alpha based on height
+
+                Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), surface, name = block_type)
 
     def is_game_over(self):
         if self.player.game_over:
             font = pygame.font.Font(None, 74)
             text = font.render("Game Over!!", True, "white")
             text_rect = text.get_rect(center = (SCREENWIDTH/2,SCREENHEIGHT/3))
-            self.app.screen.fill("black")
             self.app.screen.blit(text, text_rect)
             if not self.played:
                 pygame.mixer.music.stop()

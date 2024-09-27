@@ -11,6 +11,7 @@ texture_data = {
 
     "grass":{"type":"block", "file_path":"res/grass.png","size":(TILESIZE, TILESIZE)},
     "corrupt_grass":{"type":"block", "file_path":"res/corrupt_grass.png","size":(TILESIZE, TILESIZE)},
+    "crimson_grass":{"type":"block", "file_path":"res/crimson_grass.png","size":(TILESIZE, TILESIZE)},
     "dirt":{"type":"block", "file_path":"res/dirt.png","size":(TILESIZE, TILESIZE)},
     "stone":{"type":"block", "file_path":"res/stone.png","size":(TILESIZE, TILESIZE)},
     "wood":{"type":"block", "file_path":"res/wood.png","size":(TILESIZE, TILESIZE)},
