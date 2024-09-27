@@ -21,18 +21,53 @@ class Game:
 
 
         self.scene = Scene(self)
+
+    def main_menu(self):
+        font = pygame.font.Font(None, 74)
+        title_text = font.render("Main Menu", True, "white")
+        start_text = font.render("Press ENTER to Start", True, "white")
+        exit_text = font.render("Press ESC to Exit", True, "white")
+
+        while True:
+            self.screen.fill((0, 0, 0))  # Clear the screen
+            self.screen.blit(title_text, (SCREENWIDTH // 2 - title_text.get_width() // 2, 100))
+            self.screen.blit(start_text, (SCREENWIDTH // 2 - start_text.get_width() // 2, 250))
+            self.screen.blit(exit_text, (SCREENWIDTH // 2 - exit_text.get_width() // 2, 350))
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.close()  # Close the game properly
+                    return
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        self.scene.running = True  # Start the game
+                        return
+                    elif event.key == pygame.K_ESCAPE:
+                        self.close()  # Close the game properly
+                        return
+
     
     def run(self):
-        while self.scene.running:
-            self.update()
-            self.draw()
+        self.main_menu()  # Show the main menu first
+        while True:  # Use an infinite loop to manage states
+            if self.scene.running:
+                self.update()
+                self.draw()
+            else:
+                self.main_menu()  # Return to the menu if not running
 
-        self.close()
+
+            
     def update(self):
         EventHandler.poll_events()
         for event in EventHandler.events:
-            if event.type == pygame.QUIT:
-                self.scene.running = False
+            if event.type == pygame.QUIT :
+                self.close()
+            if event.type == pygame.KEYDOWN: 
+                if event.key == pygame.K_ESCAPE:
+                    self.scene.running = False 
+                    return
 
         self.scene.update()
     

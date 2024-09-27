@@ -12,7 +12,7 @@ class Scene:
     def __init__(self, app):
         self.app = app
         self.screen = app.screen
-        self.running = True
+        self.running = False
         self.played = False
         self.textures = gen_textures()
         self.background = pygame.image.load("res/background.jpg").convert_alpha()
