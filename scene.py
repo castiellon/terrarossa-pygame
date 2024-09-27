@@ -46,11 +46,12 @@ class Scene:
             })
 
     def gen_world(self):
+        #grass biome
         noise_generator = OpenSimplex(seed = 15062002)
         heightmap = []
-        for y in range(200):
+        for y in range(BIOMESIZE*2):
             noise_value = noise_generator.noise2(y * 0.1, 0)
-            height = int((noise_value + 1) * 8 + 4)
+            height = int((noise_value + 1) * 8 + 3)
             heightmap.append(height)
         
         smooth_heightmap = []
@@ -60,15 +61,26 @@ class Scene:
             smooth_height = sum(window_values) // len(window_values)
             smooth_heightmap.append(smooth_height)
 
-        for x in range(len(smooth_heightmap)):
+        for x in range(0,BIOMESIZE):
             for y in range(smooth_heightmap[x]):
                 y_offset = 5-y
                 block_type = "dirt"
                 if y == smooth_heightmap[x]-1:
                     block_type ="grass"
-                if y < smooth_heightmap[x]-5:
+                if y < smooth_heightmap[x]-4:
                     block_type = "stone"
                 Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), self.textures[block_type], name = block_type)
+        #corrupt biome
+        for x in range(BIOMESIZE, len(smooth_heightmap)):
+            for y in range(smooth_heightmap[x]):
+                y_offset = 5-y
+                block_type = "dirt"
+                if y == smooth_heightmap[x]-1:
+                    block_type ="corrupt_grass"
+                if y < smooth_heightmap[x]-4:
+                    block_type = "stone"
+                Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), self.textures[block_type], name = block_type)
+
 
     def is_game_over(self):
         if self.player.game_over:

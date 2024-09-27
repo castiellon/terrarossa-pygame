@@ -130,6 +130,7 @@ class Player(pygame.sprite.Sprite):
         self.do_texture()
         self.move()
         self.block_handling()
+        print(self.rect.x//TILESIZE)
         
         if self.health <= 0 or self.rect.y > SCREENHEIGHT*3:
             self.kill()

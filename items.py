@@ -81,6 +81,7 @@ class ItemData:
 
 items: dict[str, ItemData] = {
     "grass":ItemData("grass", item_type=BlockItem),
+    "corrupt_grass":ItemData("corrupt_grass", item_type=BlockItem),
     "dirt":ItemData("dirt", item_type=BlockItem),
     "stone":ItemData("stone", item_type=BlockItem),
     "wood":ItemData("wood", item_type=BlockItem),
