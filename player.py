@@ -131,7 +131,7 @@ class Player(pygame.sprite.Sprite):
         self.move()
         self.block_handling()
         
-        if self.health <= 0:
+        if self.health <= 0 or self.rect.y > SCREENHEIGHT*3:
             self.kill()
             self.game_over = True
 
