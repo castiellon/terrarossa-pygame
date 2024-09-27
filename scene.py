@@ -33,11 +33,13 @@ class Scene:
         self.player = Player([self.sprites], image = self.textures["player"], parameters={"group_list":self.group_list,
                                                                                           "inventory":self.inventory,
                                                                                           "health": 3})
+
+        #generation
         self.gen_world()
         self.create_mobs()
 
     def create_mobs(self):
-        mob_positions = [(800, 0)] #revert back!!! add more mobs(harder)
+        mob_positions = [(34*TILESIZE, 0)] #revert back!!! add more mobs(harder)
         for pos in mob_positions:
             Mob([self.sprites, self.mobs], pos, self.textures["zombie_static"], parameters={
                 "block_group": self.blocks,
@@ -69,7 +71,13 @@ class Scene:
                     block_type ="grass"
                 if y < smooth_heightmap[x]-4:
                     block_type = "stone"
-                Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), self.textures[block_type], name = block_type)
+
+                # Calculate alpha value based on the height
+                alpha_value = int(255 * (y / smooth_heightmap[x]))
+                surface = self.textures[block_type].copy()
+                surface.set_alpha(alpha_value)  # Set alpha based on height
+
+                Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), surface, name = block_type)
         #corrupt biome
         for x in range(BIOMESIZE, len(smooth_heightmap)):
             for y in range(smooth_heightmap[x]):
@@ -79,7 +87,12 @@ class Scene:
                     block_type ="corrupt_grass"
                 if y < smooth_heightmap[x]-4:
                     block_type = "stone"
-                Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), self.textures[block_type], name = block_type)
+
+                alpha_value = int(255 * (y / smooth_heightmap[x]))
+                surface = self.textures[block_type].copy()
+                surface.set_alpha(alpha_value)  # Set alpha based on height
+
+                Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), surface, name = block_type)
 
 
     def is_game_over(self):

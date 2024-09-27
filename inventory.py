@@ -10,8 +10,8 @@ class Inventory:
         self.slots = []
         for index in range(5):
             self.slots.append(Item())
-        self.slots[0] = WandItem("wand", 10)
-        self.slots[1] = WandItem("wand_2", 10)
+        self.slots[0] = WandItem("wand", 1)
+        self.slots[1] = WandItem("wand_2", 1)
         self.slots[2] = BlockItem("wood", 200)
         self.last_item_time = pygame.time.get_ticks()  # Track time of the last item addition
         self.item_interval = 2000  # 2 seconds interval

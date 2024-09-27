@@ -120,7 +120,7 @@ class Mob(Entity):
         # Draw the health bar 
         if bar_width > 0:  # Only draw if there's health left
             pygame.draw.rect(screen, "black", health_bar_rect)
-            pygame.draw.rect(screen, "lightgray", current_health_bar_rect)
+            pygame.draw.rect(screen, "white", current_health_bar_rect)
 
 
 
