@@ -12,7 +12,7 @@ class Scene:
     def __init__(self, app):
         self.app = app
         self.screen = app.screen
-        self.running = False
+        self.running = True
         self.played = False
         self.textures = gen_textures()
         self.background = pygame.image.load("res/background.jpg").convert_alpha()
@@ -113,8 +113,11 @@ class Scene:
         if self.player.game_over:
             font = pygame.font.Font(None, 74)
             text = font.render("Game Over!!", True, "white")
-            text_rect = text.get_rect(center = (SCREENWIDTH/2,SCREENHEIGHT/3))
-            self.app.screen.blit(text, text_rect)
+
+            text_2 = font.render("stay determined", True, "white")
+
+            self.app.screen.blit(text,(SCREENWIDTH // 2 - text.get_width() // 2, 200))
+            self.app.screen.blit(text_2,(SCREENWIDTH // 2 - text_2.get_width() // 2, 300))
             if not self.played:
                 pygame.mixer.music.stop()
                 pygame.mixer.music.load("res/lightless.mp3")

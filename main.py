@@ -10,29 +10,30 @@ class Game:
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         self.clock = pygame.time.Clock()
         icon = pygame.image.load('res/heart.png')  
-
+        self.font_big = pygame.font.Font("res/font.ttf", 74)
+        self.font_small = pygame.font.Font("res/font.ttf", 40)
         # Set the window icon
         pygame.display.set_icon(icon)   
         pygame.display.set_caption("terrarossa - bitaneme") 
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.load("res/background_music.mp3")
-        pygame.mixer.music.play(-1)      
+        pygame.mixer.music.play(-1)    
+
 
 
 
         self.scene = Scene(self)
 
     def main_menu(self):
-        font = pygame.font.Font(None, 74)
-        title_text = font.render("Main Menu", True, "white")
-        start_text = font.render("Press ENTER to Start", True, "white")
-        exit_text = font.render("Press ESC to Exit", True, "white")
+
+        title_text = self.font_big.render("terrarossa", True, "white")
+        start_text = self.font_small.render("Press ENTER to Start", True, "white")
+        exit_text = self.font_small.render("Press ESC to Exit", True, "white")
 
         while True:
-            self.screen.fill((0, 0, 0))  # Clear the screen
             self.screen.blit(title_text, (SCREENWIDTH // 2 - title_text.get_width() // 2, 100))
-            self.screen.blit(start_text, (SCREENWIDTH // 2 - start_text.get_width() // 2, 250))
-            self.screen.blit(exit_text, (SCREENWIDTH // 2 - exit_text.get_width() // 2, 350))
+            self.screen.blit(start_text, (SCREENWIDTH // 2 - start_text.get_width() // 2, 400))
+            self.screen.blit(exit_text, (SCREENWIDTH // 2 - exit_text.get_width() // 2, 500))
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -48,14 +49,58 @@ class Game:
                         return
 
     
+    def credits(self):
+        title_text = self.font_big.render("credits", True, "white")
+        credit_text = self.font_big.render("game by talha", True, "white")
+        exit_text = self.font_big.render("press ESC to exit", True, "white")
+
+        background_image = pygame.image.load("res/credits.png").convert_alpha()
+        background_image = pygame.transform.scale(background_image, (SCREENWIDTH,SCREENHEIGHT))
+
+        while True:
+            self.screen.blit(background_image, (0, 0))  # Draw the background image
+            self.screen.blit(title_text, (SCREENWIDTH // 2 - title_text.get_width() // 2, 100))
+            self.screen.blit(credit_text, (SCREENWIDTH // 2 - credit_text.get_width() // 2, 250))
+            self.screen.blit(exit_text, (SCREENWIDTH // 2 - exit_text.get_width() // 2, 350))
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.close()  # Close the game properly
+                    return
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        self.scene.running = True  # Start the game
+                        return
+                    elif event.key == pygame.K_ESCAPE:
+                        self.close()  # Close the game properly
+                        return
+    def pause(self):
+        title_text = self.font_big.render("paused", True, "white")
+        exit_text = self.font_small.render("press ESC to return", True, "white")
+
+        while True:
+            self.screen.blit(title_text, (SCREENWIDTH // 2 - title_text.get_width() // 2, 20))
+            self.screen.blit(exit_text, (SCREENWIDTH // 2 - exit_text.get_width() // 2, 200))
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.close()  # Close the game properly
+                    return
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.scene.running = True  # Start the game
+                        return
+
     def run(self):
         self.main_menu()  # Show the main menu first
         while True:  # Use an infinite loop to manage states
             if self.scene.running:
                 self.update()
                 self.draw()
-            else:
-                self.main_menu()  # Return to the menu if not running
+            elif not self.scene.running:
+                self.credits()  # Credits
 
 
             
@@ -66,7 +111,7 @@ class Game:
                 self.close()
             if event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_ESCAPE:
-                    self.scene.running = False 
+                    self.pause()
                     return
 
         self.scene.update()

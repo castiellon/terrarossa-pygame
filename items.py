@@ -89,4 +89,3 @@ items: dict[str, ItemData] = {
     "wand":ItemData("wand",item_type=WandItem, damage=1, projectile_speed = 10),
     "wand_2":ItemData("wand_2",item_type=WandItem,damage=2, projectile_speed = 6)
 }
-print(items["wand"].projectile_speed)
