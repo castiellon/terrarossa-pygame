@@ -116,8 +116,7 @@ class Scene:
 
             text_2 = font.render("stay determined", True, "white")
 
-            self.app.screen.blit(text,(SCREENWIDTH // 2 - text.get_width() // 2, 200))
-            self.app.screen.blit(text_2,(SCREENWIDTH // 2 - text_2.get_width() // 2, 300))
+            self.app.screen.blit(text,(SCREENWIDTH // 2 - text.get_width() // 2, 100))
             if not self.played:
                 pygame.mixer.music.stop()
                 pygame.mixer.music.load("res/lightless.mp3")
