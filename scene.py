@@ -109,12 +109,15 @@ class Scene:
 
                 Entity([self.sprites, self.blocks], (x*TILESIZE,y_offset*TILESIZE), surface, name = block_type)
 
+    def do_mob_list(self):
+        for mob in self.mobs:
+            if mob.health == 0:
+                self.mobs.remove(mob)
+
     def is_game_over(self):
         if self.player.game_over:
             font = pygame.font.Font(None, 74)
             text = font.render("Game Over!!", True, "white")
-
-            text_2 = font.render("stay determined", True, "white")
 
             self.app.screen.blit(text,(SCREENWIDTH // 2 - text.get_width() // 2, 100))
             if not self.played:
@@ -124,11 +127,14 @@ class Scene:
                 pygame.mixer.music.play(1)
                 self.played = True
             if not pygame.mixer.music.get_busy():
-                self.running = False   
+                self.running = False
+        elif len(self.mobs) == 0:
+            self.running = False
 
     def update(self):
         self.inventory.update()
         self.sprites.update()
+        #print(len(self.mobs))
     def draw(self):
         if self.player.velocity != pygame.math.Vector2():
             self.screen.blit(self.background, (0,0))
