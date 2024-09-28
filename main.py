@@ -58,7 +58,7 @@ class Game:
     def credits(self):
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.load("res/across_the_desert.mp3")
-        pygame.mixer.music.play(-1)    
+        pygame.mixer.music.play(1)    
 
         title_text = self.font_big.render("credits", True, "white")
         credit_text = self.font_big.render("game by talha", True, "white")
@@ -76,10 +76,7 @@ class Game:
                     self.close()  # Close the game properly
                     return
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
-                        self.scene.running = True  # Start the game
-                        return
-                    elif event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE:
                         self.close()  # Close the game properly
                         return
     def pause(self):
@@ -104,14 +101,11 @@ class Game:
     def finale(self):
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.load("res/jazz_on_a_boat.mp3")
-        pygame.mixer.music.play(-1)  
+        pygame.mixer.music.play(1)  
         
-        title_text = self.font_big.render("you won!!", True, "white")
-        credit_text = self.font_big.render("game by talha", True, "white")
-        exit_text = self.font_big.render("press ESC to exit", True, "white")
-
-
-
+        title_text = self.font_big.render("you won!!", True, "black")
+        credit_text = self.font_big.render("game by talha", True, "black")
+        exit_text = self.font_big.render("press ESC to exit", True, "black")
         while True:
             self.screen.blit(self.background_image_2, (0, 0))  # Draw the background image
             self.screen.blit(title_text, (SCREENWIDTH // 2 - title_text.get_width() // 2, 100))
@@ -124,10 +118,7 @@ class Game:
                     self.close()  # Close the game properly
                     return
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
-                        self.scene.running = True  # Start the game
-                        return
-                    elif event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE:
                         self.close()  # Close the game properly
                         return
 
